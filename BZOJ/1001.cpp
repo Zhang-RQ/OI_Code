@@ -17,7 +17,7 @@ void add(int u,int v,int val)
 	Edge[cnt].val=val;
 	alist[v]=cnt;
 }
-void inti(void)
+void init(void)
 {
 	int tmp;
 	for(int i=1;i<=n;i++)
@@ -110,7 +110,7 @@ int main()
 		printf("%d\n",min);
 		return 0;
 	}
-	inti();
+	init();
 	spfa();
 	printf("%d\n",dis[t]);
 	return 0;

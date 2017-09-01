@@ -1,10 +1,12 @@
 #include<bits/stdc++.h>
 using namespace std;
+int nm;
 int s,t,n,m;
-int alist[1000010];
+#define M 2000001
+int alist[M];
 struct Node{
 	int val,nxt,v;
-}Edge[9000010];
+}Edge[M*4];
 int cnt=0;
 void add(int u,int v,int val)
 {
@@ -18,6 +20,46 @@ void add(int u,int v,int val)
 	alist[v]=cnt;
 }
 void init(void)
+{
+    int x;
+    for(int j=1;j<m;j++)
+	{
+		scanf("%d",&x);
+		add(j,nm+1,x);
+	}
+	for(int i=1;i<n-1;i++)
+	{
+		for(int j=1;j<m;j++)
+		{
+			scanf("%d",&x);
+			add((i<<1)*(m-1)+j,((i<<1)-1)*(m-1)+j,x);
+	    }
+	}
+	for(int j=1;j<m;j++)
+	{
+		scanf("%d",&x);
+		add(0,((n<<1)-3)*(m-1)+j,x);
+	}
+	for(int i=0;i<n-1;i++)
+	{
+		for(int j=1;j<=m;j++)
+		{
+			scanf("%d",&x);
+			if(j==1)add(0,(i<<1)*(m-1)+m,x);
+			else if(j==m)add((i<<1|1)*(m-1),nm+1,x);
+			else add((i<<1)*(m-1)+j-1,(i<<1)*(m-1)+j+m-1,x);
+		}
+	}
+	for(int i=0;i<n-1;i++)
+	{
+		for(int j=1;j<m;j++)
+		{
+			scanf("%d",&x);
+			add((i<<1|1)*(m-1)+j,(i<<1)*(m-1)+j,x);
+		}
+	}
+}
+void init_mine(void)
 {
 	int tmp;
 	for(int i=1;i<=n;i++)
@@ -52,14 +94,14 @@ void init(void)
 			add(u,v,tmp);
 			//printf("%d %d %d\n",u,v,tmp);
 		}
-		
+
 }
 queue<int> q;
-int dis[2000010];
-bool inq[2000010];
+int dis[M];
+bool inq[M];
 void spfa()
 {
-	memset(dis,1236547,sizeof(dis));
+	memset(dis,0x3f,sizeof(dis));
 	dis[s]=0;
 	inq[s]=true;
 	q.push(s);
@@ -86,18 +128,19 @@ void spfa()
 int main()
 {
 	int tmp;
-	int min=1000000;
+	int Min=1000000;
 	scanf("%d%d",&n,&m);
 	s=0;
-	t=1000009;
+	t=3000009;
+	nm=(n*m-m-n+1)<<1;
 	if(n==1)
 	{
 		for(int i=1;i<=m-1;i++)
 		{
 			scanf("%d",&tmp);
-			min=std::min(tmp,min);
+			Min=min(tmp,Min);
 		}
-		printf("%d\n",min);
+		printf("%d\n",Min);
 		return 0;
 	}
 	if(m==1)
@@ -105,13 +148,13 @@ int main()
 		for(int i=1;i<=n-1;i++)
 		{
 			scanf("%d",&tmp);
-			min=std::min(tmp,min);
+			Min=min(tmp,Min);
 		}
-		printf("%d\n",min);
+		printf("%d\n",Min);
 		return 0;
 	}
 	init();
 	spfa();
-	printf("%d\n",dis[t]);
+	printf("%d\n",dis[nm+1]);
 	return 0;
 }

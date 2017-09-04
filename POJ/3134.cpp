@@ -8,16 +8,6 @@ int ans,n;
 int now[1050];
 bool IDAx(int dep)
 {
-  /*if(dep>ans) return false;
-  if((now[dep]<<(ans-dep))<n) return false;
-  if(now[dep]==n) return true;
-  for(int i=0;i<=dep;i++)
-  {
-      now[dep+1]=now[dep]+now[i];if(IDAx(dep+1)) return true;
-      now[dep+1]=now[dep]-now[i];if(IDAx(dep+1)) return true;
-  }
-  return false;
-  */
   if(dep>ans) return false;
   if((now[dep]<<(ans-dep))<n) return false;
   if(now[dep]==n) return true;

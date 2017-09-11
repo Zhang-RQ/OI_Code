@@ -11,7 +11,6 @@ struct Node{
     int v,nxt;
 }Edge[40100];
 bool vis[20100];
-int fa[20100];
 int Adj[20100];
 int d[20100];
 int cnt=0;
@@ -52,8 +51,10 @@ int main()
     scanf("%d",&T);
     while(T--)
     {
+        ans=0x3f3f3f3f;
         memset(Adj,0,sizeof(Adj));
         memset(Edge,0,sizeof(Edge));
+        memset(vis,0,sizeof(vis));
         cnt=0;
         scanf("%d",&m);
         for(int i=1;i<=m-1;i++)   scanf("%d%d",&u,&v),add(u,v);

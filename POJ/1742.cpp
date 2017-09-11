@@ -23,14 +23,14 @@ int main()
         DP[0]=0;
         for(int i=1;i<=n;i++)
         {
-            for(int j=0;j<=m;j++)
+            for(int j=0;j<=m;j++)//notice
             {
                 if(DP[j]>=0) DP[j]=C[i];
                 else if(j<A[i]||DP[j-A[i]]<=0) DP[j]=-1;
                 else DP[j]=DP[j-A[i]]-1;
             }
         }
-        for(int j=1;j<=m;j++) if(DP[j]>=0) ++ans;
+        for(int j=1;j<=m;j++) if(DP[j]>=0) ++ans;//notice
         printf("%d\n",ans);
     }
 }

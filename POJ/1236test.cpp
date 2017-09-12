@@ -40,6 +40,7 @@ void tarjan(int x)
         {
               y=s[t--];
               b[y]=cnt;v[y]=2;
+              //printf("%d\n",b[y]);
         }while (y!=x);
      }
 }
@@ -65,11 +66,16 @@ int main()
              cout << 1 << endl << 0 << endl;
              return 0;
     }
+
     for (i=1;i<=tot;i++)
         if (b[e[i].x]!=b[e[i].y])
         {
            f[b[e[i].x]]++;
            g[b[e[i].y]]++;
+        }
+    for(i=1;i<=cnt;i++)
+        {
+            printf("%d %d\n",g[i],f[i]);
         }
     ans=0;
     for (i=1;i<=cnt;i++)
@@ -79,5 +85,5 @@ int main()
     for (i=1;i<=cnt;i++)
         if (f[i]==0) ans2++;
     cout << max(ans,ans2)<< endl;
-    cout<<cnt<<endl;
+    //cout<<cnt<<endl;
 }

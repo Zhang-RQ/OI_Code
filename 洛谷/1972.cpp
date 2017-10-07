@@ -21,7 +21,7 @@ int cnt[1000010];
 int arr[50010];
 int n,m,tl,tr;
 int size,ans=0;
-bool cmp(node &a,node &b)
+bool cmp(node a,node b)
 {
     return (a.l/size==b.l/size)?(a.r<b.r):(a.l/size<b.l/size);
 }
@@ -58,5 +58,6 @@ int main()
          while(curR<R) add(++curR);
          answer[Query[i].id]=ans;
     }
-    for(int i=1;i<=m;i++) printf("%d\n",answer[i]);
+    for(int i=1;i<m;i++) printf("%d\n",answer[i]);
+    printf("%d",answer[m]);
 }

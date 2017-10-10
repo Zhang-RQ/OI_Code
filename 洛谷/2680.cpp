@@ -111,7 +111,6 @@ bool check(int x)
 int main()
 {
     scanf("%d%d",&n,&m);
-    if(n==300000&m==300000) {printf("142501313\n");return 0;}
     for(int i=1;i<=n-1;i++)
     {
         scanf("%d%d%d",&u,&v,&w);

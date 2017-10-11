@@ -3,3 +3,5 @@
 *.o
 *.out
 *.in
+*.ing
+*.ucd

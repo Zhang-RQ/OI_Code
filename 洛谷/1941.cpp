@@ -1,59 +1,67 @@
 #include<cstdio>
 #include<iostream>
-#include<cmath>
 #include<algorithm>
 #include<cstring>
-#include<vector>
-#include<map>
-#include<set>
-#include<queue>
-#include<stack>
-#include<bitset>
+#include<cstdlib>
+#include<cmath>
+#define INF 400123456
+#define maxn 10010
+
 using namespace std;
-typedef long long ll;
-int DP[1010][110];
-int up[1010],down[1010];
-int tup[1010],tdown[1010];
-bool thave[1010],ok[1010];
-int n,m,k,t1,t2,t3;
-int main()
-{
-    memset(DP,0x3f,sizeof(DP));
-    scanf("%d%d%d",&n,&m,&k);
-    for(int i=0;i<m;i++) DP[0][i]=0;
-    for(int i=0;i<n;i++) scanf("%d%d",&up[i],&down[i]);
-    for(int i=1;i<=k;i++)
-    {
-        scanf("%d%d%d",&t1,&t2,&t3);
-        thave[t1]=1;
-        tdown[t1]=t2+1;tup[t1]=t3-1;
-    }
-    for(int i=1;i<n;i++) if(!thave[i]) tup[i]=m;
-    for(int i=1;i<=n;i++)
-    {
-        for(int j=tdown[i];j<=tup[i];j++)
-        {
-            if(j>=up[i-1])
-                    DP[i][j]=min(DP[i][j],min(DP[i-1][j-up[i-1]],DP[i][j-up[i-1]])+1);
-            if(DP[i][j]!=0x3f3f3f3f) ok[i]=1;
+
+int u[maxn],v[maxn],x[maxn],y[maxn],f[2][maxn];
+int n,m,k;
+
+int main(){
+	scanf("%d%d%d",&n,&m,&k);
+	for (int i=1;i<=n;i++){
+		scanf("%d%d",&x[i],&y[i]);
+		u[i]=0;v[i]=m+1;
+	}
+	for (int i=1;i<=k;i++){
+			int W,D,T;
+			scanf("%d%d%d",&W,&D,&T);
+			u[W]=D;v[W]=T;
+			}
+	int now=1;
+	int cnt=0;
+	for (int i=0;i<=m;i++)
+		f[0][i]=0;
+	for (int i=1;i<=n;i++){
+		for (int j=1;j<=m;j++)
+			f[now][j]=INF;
+		for (int j=1;j<=m;j++)
+			if (j-x[i]>0){
+				f[now][j]=min(f[now][j],min(f[now][j-x[i]]+1,f[now^1][j-x[i]]+1));
+			}
+		for (int j=1;j<=m;j++)
+			if (j+y[i]<=m)
+				f[now][j]=min(f[now][j],f[now^1][j+y[i]]);
+		if (v[i]==m+1){
+            for (register int j=1;j<=x[i];++j)
+            for (register int k=1;k*x[i]<m+j;++k)
+                if (f[now][m]>f[now^1][m+j-k*x[i]]+k){
+                    f[now][m]=f[now^1][m+j-k*x[i]]+k;
+                }
         }
-        for(int j=tdown[i];j<=tup[i];j++)
-        {
-            if(j+down[i-1]<=m)
-                DP[i][j]=min(DP[i][j],DP[i-1][j+down[i-1]]);
-            if(DP[i][j]!=0x3f3f3f3f) ok[i]=1;
-        }
-    }
-    int ans=0x3f3f3f3f;
-    for(int i=0;i<=m;i++)  ans=min(ans,DP[n][i]);
-    for(int i=0;i<=n;i++)
-    {
-        for(int j=0;j<=m;j++) printf("%d ",DP[i][j]);
-        puts("");
-    }
-    if(ans!=0x3f3f3f3f)  printf("%d\n",ans);
-    else{
-        printf("0\n");
-        for(int i=n;i>=0;i--) if(ok[i]) {printf("%d\n",i);break;}
-    }
+		for (int j=1;j<=u[i];j++) f[now][j]=INF;
+		for (int j=v[i];j<=m;j++) f[now][j]=INF;
+
+		int flag=0;
+		for (int j=u[i]+1;j<v[i];j++)
+			if (f[now][j]!=INF){
+				flag=1;break;
+			}
+		if (!flag) {
+			printf("0\n%d\n",cnt);
+			return 0;
+		}
+		if (v[i]!=m+1) cnt++;
+	now^=1;
+	}
+	int MIN=INF;
+	for (int i=u[n]+1;i<v[n];i++)
+		MIN=min(MIN,f[now^1][i]);
+	printf("1\n%d\n",MIN);
+	return 0;
 }

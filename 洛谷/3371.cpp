@@ -18,6 +18,15 @@ int head[M];
 struct Node{
     int val,nxt,v;
 }Edge[N];
+struct A{
+    int pnt,dis;
+    A(){}
+    A(int pnt,int dis):pnt(pnt),dis(dis){}
+    bool operator < (const A a)const
+    {
+        return dis>a.dis;
+    }
+};
 int cnte=0;
 int dis[M];
 bool inq[M];
@@ -28,7 +37,6 @@ inline void add(int u,int v,int val)
     Edge[cnte].val=val;
     head[u]=cnte;
 }
-
 void spfa(int s)
 {
     memset(dis,0x3f,sizeof(dis));
@@ -51,7 +59,28 @@ void spfa(int s)
         }
     }
 }
-
+void dij(int s)
+{
+    memset(dis,0x3f,sizeof(dis));
+    priority_queue<A> q;
+    q.push(A(s,0));
+    dis[s]=0;
+    while(q.size())
+    {
+        int x=q.top().pnt;
+        int ds=q.top().dis;
+        q.pop();
+        for(int i=head[x];i;i=Edge[i].nxt)
+        {
+            int v=Edge[i].v;
+            if(ds+Edge[i].val<dis[v])
+            {
+                dis[v]=ds+Edge[i].val;
+                q.push(A(v,dis[v]));
+            }
+        }
+    }
+}
 int main()
 {
     int n,m,s,u,v,val;
@@ -61,7 +90,8 @@ int main()
         cin>>u>>v>>val;
         add(u,v,val);
     }
-    spfa(s);
+    //spfa(s);
+    dij(s);
     for(int i=1;i<=n;i++)
     {
         if(dis[i]!=0x3f3f3f3f) printf("%d ",dis[i]);

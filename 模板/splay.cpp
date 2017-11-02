@@ -44,31 +44,19 @@ inline void splay(int x)
             else rotate(x,1);
         }
         else if(son[fa[y]][1]==y)
-        {
             if(son[y][1]==x)
-            {
-                rotate(y,2);
+                rotate(y,2),
                 rotate(x,2);
-            }
             else
-            {
-                rotate(x,1);
+                rotate(x,1),
                 rotate(x,2);
-            }
-        }
         else
-        {
             if(son[y][1]==x)
-            {
-                rotate(x,2);
+                rotate(x,2),
                 rotate(x,1);
-            }
             else
-            {
-                rotate(y,1);
+                rotate(y,1),
                 rotate(x,1);
-            }
-        }
     }
     root=x;
 }

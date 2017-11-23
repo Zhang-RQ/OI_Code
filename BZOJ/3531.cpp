@@ -57,21 +57,17 @@ struct NODE{
 int rt[MAXC],col[MAXN];
 int n,q,x,y;
 char opt[20];
-void change(int x,int l,int r,int pos,int val)
+void change(int &x,int l,int r,int pos,int val)
 {
+    if(!x)
+        x=++cnt;
     if(l==r)
         {tree[x].val=tree[x].mx=val;return;}
     int mid=(l+r)>>1;
     if(pos<=mid)
-    {
-        if(!tree[x].ls)  tree[x].ls=++cnt;
         change(Ls,pos,val);
-    }
     else
-    {
-        if(!tree[x].rs)  tree[x].rs=++cnt;
         change(Rs,pos,val);
-    }
     tree[x].val=tree[tree[x].ls].val+tree[tree[x].rs].val;
     tree[x].mx=max(tree[tree[x].ls].mx,tree[tree[x].rs].mx);
     //printf("%d,%d,%d,mx=%d,val=%d\n",x,l,r,tree[x].mx,tree[x].val);

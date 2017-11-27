@@ -44,7 +44,7 @@ void rotate(int x)
     if(ffx)
         tree[ffx].son[rsfx]=x;
     else root=x;
-    tree[x].fa=ffx;tree[fx].fa=x;
+    tree[x].fa=ffx;
     tree[fx].son[rsx]=tree[x].son[rsx^1];
     tree[x].son[rsx^1]=fx;
     pushup(fx);

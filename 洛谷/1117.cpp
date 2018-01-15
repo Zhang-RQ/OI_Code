@@ -12,7 +12,7 @@
 using namespace std;
 typedef long long ll;
 typedef unsigned long long ull;
-const int MAXN=30010;
+const int MAXN=50010;
 template <int MN>
     class SuffixArray{
     public:

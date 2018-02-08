@@ -1,95 +1,95 @@
 #include<cstdio>
-#include<cmath>
-#include<algorithm>
 #include<cstring>
+#include<cstdlib>
+#include<cctype>
+#include<cmath>
+#include<iostream>
+#include<algorithm>
 #include<vector>
+#include<set>
 #include<map>
 #include<queue>
-#include<stack>
+typedef long long ll;
+typedef unsigned long long ull;
 using namespace std;
-int s,t,m,n,k;
-int f[1100];
-struct Node{
-    int w,v,nxt;
-}Edge[100000*2+100];
-struct Node2{
-    int f,id,now;
-    Node2(){}
-    Node2(int f1,int id1,int now1){
-        f=f1;id=id1;now=now1;
-    }
-    friend bool operator <(Node2 a,Node2 b)
+const int MAXN=1E3+5;
+const int MAXM=1E5+5;
+struct Graph{
+    struct node{
+        int nxt,v,w;
+    }Edge[MAXM];
+    int head[MAXN],cnt_e;
+    inline void add(int u,int v,int w)
     {
-        if(!(a.f+a.now==b.f+b.now))   return a.f+a.now>b.f+b.now;
-        else    return a.f>b.f;
+        Edge[++cnt_e].v=v;
+        Edge[cnt_e].nxt=head[u];
+        Edge[cnt_e].w=w;
+        head[u]=cnt_e;
+    }
+}G,Gr;
+struct S{
+    int u,ds,rds;
+    S(int ux,int x,int y):u(ux),ds(x),rds(y){}
+    friend bool operator < (S a,S b)
+    {
+        return a.rds+a.ds>b.rds+b.ds;
     }
 };
-int head[1100][2];
-int cnt=0;
-void add(int u,int v,int w)
-{
-    Edge[++cnt].nxt=head[u][0];Edge[cnt].w=w;Edge[cnt].v=v;head[u][0]=cnt;
-    Edge[++cnt].nxt=head[v][1];Edge[cnt].w=w;Edge[cnt].v=u;head[v][1]=cnt;
-}
+int n,m,s,t,k,u,v,w;
+int rdis[MAXN];
+bool inq[MAXN];
 void spfa()
 {
     queue<int> q;
-    bool inq[1100];
+    memset(rdis,0x3f,sizeof(rdis));
     memset(inq,0,sizeof(inq));
-    memset(f,0x3f,sizeof(f));
-    q.push(t);f[t]=0;inq[t]=true;
-    while(q.size())
+    rdis[t]=0;
+    q.push(t);inq[t]=0;
+    while(!q.empty())
     {
-        int tmp=q.front();q.pop();inq[tmp]=false;
-        for(int i=head[tmp][1];i;i=Edge[i].nxt)
+        int x=q.front();
+        q.pop();inq[x]=0;
+        for(int i=Gr.head[x];i;i=Gr.Edge[i].nxt)
         {
-            int v=Edge[i].v;
-            if(f[v]>f[tmp]+Edge[i].w)
+            int v=Gr.Edge[i].v;
+            if(rdis[v]>rdis[x]+Gr.Edge[i].w)
             {
-                f[v]=f[tmp]+Edge[i].w;
-                if(!inq[v])
-                {
-                    q.push(v);
-                    inq[v]=true;
-                }
+                rdis[v]=rdis[x]+Gr.Edge[i].w;
+                if(!inq[v]) q.push(v),inq[v]=1;
             }
         }
     }
 }
-int ans=-1;
-void Astar()
+int Astar()
 {
-    priority_queue<Node2> q;
+    if(rdis[s]==0x3f3f3f3f) return -1;
     int cnt=0;
-    q.push(Node2(f[s],s,0));
-    while(q.size())
+    if(s==t) ++k;
+    priority_queue<S> pq;
+    pq.push(S(s,0,rdis[s]));
+    while(!pq.empty())
     {
-        Node2 tmp=q.top();q.pop();
-        if(tmp.id==t)
+        S tmp=pq.top();
+        pq.pop();
+        if(tmp.u==t&&++cnt==k) return tmp.ds;
+        for(int i=G.head[tmp.u];i;i=G.Edge[i].nxt)
         {
-            cnt++;
-            if(cnt==k) {ans=tmp.now;return;}
-        }
-        //printf("%d  %d  %d\n",tmp.id,tmp.f,tmp.now);
-        for(int i=head[tmp.id][0];i;i=Edge[i].nxt)
-        {
-            int v=Edge[i].v;
-            q.push(Node2(f[v],v,tmp.now+Edge[i].w));
+            int v=G.Edge[i].v;
+            pq.push(S(v,tmp.ds+G.Edge[i].w,rdis[v]));
         }
     }
+    return -1;
 }
 int main()
 {
-    int u,v,w;
     scanf("%d%d",&n,&m);
     for(int i=1;i<=m;i++)
     {
         scanf("%d%d%d",&u,&v,&w);
-        add(u,v,w);
+        G.add(u,v,w);
+        Gr.add(v,u,w);
     }
     scanf("%d%d%d",&s,&t,&k);
     spfa();
-    //for(int i=1;i<=n;i++) printf("%d\n",f[i]);
-    Astar();
-    printf("%d\n",ans);
+    printf("%d\n",Astar());
 }

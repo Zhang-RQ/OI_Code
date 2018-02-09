@@ -130,10 +130,12 @@ int kth(int x,int rk)
     if(tree[ls(x)].siz+1>rk) return kth(rs(x),rk-1-tree[ls(x)].siz);
     return kth(ls(x),rk);
 }
-void get_range(int l,int r)
+int get_range(int l,int r)
 {
     int tmp=kth(root,l-1);
     splay(tmp,0);
+    splay(kth(root,r+1),tmp);
+    return rs(root);
 }
 int main()
 {

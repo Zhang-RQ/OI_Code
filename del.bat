@@ -1,5 +1,5 @@
-del /a /f /q /s "F:\Github\OI_DataBase\*.exe"
-del /a /f /q /s "F:\Github\OI_DataBase\*.o"
-del /a /f /q /s "F:\Github\OI_DataBase\*.in"
-del /a /f /q /s "F:\Github\OI_DataBase\*.out"
+del /a /f /q /s "*.exe"
+del /a /f /q /s "*.o"
+del /a /f /q /s "*.in"
+del /a /f /q /s "*.out"
 pause

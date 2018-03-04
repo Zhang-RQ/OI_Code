@@ -253,8 +253,8 @@ inline ll query_max_sub_sum(int l,int r)
 void print(int x)
 {
 	if(ls(x)) print(ls(x));
-    //pushdown(x);
-	printf("%d ls:%d rs:%d fa:%d val:%d maxn:%d minn:%d siz:%d sum:%lld lx:%lld rx:%lld mx:%lld edt:%d mult:%d mul:%lld\n",x,ls(x),rs(x),fa(x),tree[x].val,tree[x].maxn,tree[x].minn,tree[x].siz,tree[x].sum,tree[x].lmx,tree[x].rmx,tree[x].mx,tree[x].edt,tree[x].mult,tree[x].mul);
+    pushdown(x);
+	//printf("%d ls:%d rs:%d fa:%d val:%d maxn:%d minn:%d siz:%d sum:%lld lx:%lld rx:%lld mx:%lld edt:%d mult:%d mul:%lld\n",x,ls(x),rs(x),fa(x),tree[x].val,tree[x].maxn,tree[x].minn,tree[x].siz,tree[x].sum,tree[x].lmx,tree[x].rmx,tree[x].mx,tree[x].edt,tree[x].mult,tree[x].mul);
 	if(rs(x)) print(rs(x));
 }
 int main()
@@ -266,7 +266,7 @@ int main()
 	for(int i=1;i<=q;i++)
 	{
 		scanf("%d",&opt);
-        //print(root);
+        print(root);
         //printf("siz=%d\n",tree[root].siz);
 		switch(opt)
 		{

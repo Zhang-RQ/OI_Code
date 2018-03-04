@@ -13,8 +13,8 @@
 typedef long long ll;
 typedef unsigned long long ull;
 using namespace std;
-const int MAXN=2E4+5;
-const int MAXM=5E4+5;
+const int MAXN=1E4+5;
+const int MAXM=2E4+5;
 struct node{
     int nxt,v,w;
 }Edge[MAXM];
@@ -26,68 +26,82 @@ inline void add(int u,int v,int w)
     Edge[cnt_e].w=w;
     head[u]=cnt_e;
 }
-int vis[MAXN],siz[MAXN],rt,mx_rt;
-int tot=0,ans=0,g[3];
-int n,u,v,w;
+int siz[MAXN],rt,mx_rt,stk[MAXN],n,k,top;
+bool vis[MAXN];
+ll ans;
 void get_root(int x,int fa,int sz)
 {
-    int mx=1;siz[x]=1;
+    int mx=1;
+    siz[x]=1;
     for(int i=head[x];i;i=Edge[i].nxt)
     {
         int v=Edge[i].v;
         if(v==fa||vis[v]) continue;
         get_root(v,x,sz);
+        mx=max(siz[v],mx);
         siz[x]+=siz[v];
-        mx=max(mx,siz[v]);
     }
     mx=max(mx,sz-siz[x]);
-    if(mx<mx_rt) mx_rt=mx,rt=x;
+    if(mx<mx_rt) rt=x,mx_rt=mx;
 }
-void dfs(int x,int fa,int val)
+void dfs(int x,int fa,int dep)
 {
-    g[val]++;
+    stk[++top]=dep;
     for(int i=head[x];i;i=Edge[i].nxt)
     {
         int v=Edge[i].v;
         if(v==fa||vis[v]) continue;
-        dfs(v,x,(val+Edge[i].w)%3);
+        dfs(v,x,dep+Edge[i].w);
     }
 }
-int calc(int x,int val)
+void calc(int x,int val,bool flag)
 {
-    g[0]=g[1]=g[2]=0;
+    top=0;
     dfs(x,0,val);
-    return g[1]*g[2]*2+g[0]*g[0];
+    sort(stk+1,stk+1+top);
+    int l=1,r=top;
+    ll tmp=0;
+    while(l<r)
+    {
+        if(stk[l]+stk[r]<=k)
+        {
+            tmp+=r-l;  //stk[l] -> stk[l+1]...stk[r]
+            l++;
+        }
+        else r--;
+    }
+    if(flag) ans+=tmp;
+    else ans-=tmp;
 }
 void solve(int x)
 {
-    ans+=calc(x,0);
+    calc(x,0,1);
     vis[x]=1;
     for(int i=head[x];i;i=Edge[i].nxt)
     {
         int v=Edge[i].v;
         if(vis[v]) continue;
-        ans-=calc(v,Edge[i].w%3);
-        rt=0;mx_rt=MAXN+10000;
+        calc(v,Edge[i].w,0);
+        mx_rt=1000000;
         get_root(v,0,siz[v]);
         solve(rt);
     }
 }
-int gcd(int a,int b)
-{
-    if(!b) return a;
-    return gcd(b,a%b);
-}
+int u,v,w;
 int main()
 {
-    scanf("%d",&n);
-    for(int i=1;i<n;i++)
-        scanf("%d%d%d",&u,&v,&w),w%=3,
-        add(u,v,w),add(v,u,w);
-    mx_rt=MAXN+10;
-    get_root(1,0,n);
-    solve(rt);
-    int gc=gcd(ans,n*n);
-    printf("%d/%d\n",ans/gc,n*n/gc);
+    while(scanf("%d%d",&n,&k)&&n&&k)
+    {
+        memset(head,0,sizeof head);
+        memset(vis,0,sizeof vis);
+        cnt_e=0;ans=0;
+        for(int i=1;i<n;i++)
+            scanf("%d%d%d",&u,&v,&w),
+            add(u,v,w),add(v,u,w);
+        mx_rt=1000000;
+        get_root(1,0,n);
+        solve(rt);
+        printf("%lld\n",ans);
+    }
     return 0;
 }

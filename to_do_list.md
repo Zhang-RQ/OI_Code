@@ -3,7 +3,7 @@
 - [x] CodeForces 161D
 
 
-- [ ] BZOJ 3697
+- [x] BZOJ 3697
 
 ### 动态点分治
 

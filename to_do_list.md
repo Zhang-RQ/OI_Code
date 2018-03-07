@@ -21,7 +21,8 @@
 
 ### CDQ分治​
 
-- [x] BZOJ3262
+- [x] BZOJ 3262
+- [x]  BZOJ 1935
 
 
 ### Lucas

@@ -87,7 +87,7 @@
 - [ ] bzoj 3944
 - [ ] bzoj 4407
 - [ ] bzoj 4176
-- [ ] bzoj 2005
+- [x] bzoj 2005
 - [ ] bzoj 3561
 - [ ] bzoj 2705
 - [ ] uoj 221

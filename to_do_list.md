@@ -25,7 +25,7 @@
 - [x] BZOJ 1935
 - [x] BZOJ 3925
 - [x] BZOJ 2716
-- [ ] BZOJ 2683
+- [x] BZOJ 2683
 
 
 ### Lucas

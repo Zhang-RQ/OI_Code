@@ -57,7 +57,7 @@
 
 - [x] hiho 1369
 - [x] hiho 1378
-- [ ] hiho 1393
+- [x] hiho 1393
 - [ ] hiho 1394
 - [ ] hiho 1398
 - [ ] bzoj 1305
@@ -74,6 +74,7 @@
 - [ ] bzoj 2039
 - [ ] bzoj 2245
 - [ ] bzoj 1927
+- [ ] AHOI2009 最小割
 
 ### LCT
 

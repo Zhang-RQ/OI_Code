@@ -80,9 +80,9 @@
 
 - [x] bzoj 2301
 - [x] bzoj 2820
-- [ ] bzoj 3529
-- [ ] bzoj 2154
-- [ ] bzoj 2693
+- [x] bzoj 3529
+- [x] bzoj 2154
+- [x] bzoj 2693
 - [ ] bzoj 3309
 - [ ] bzoj 3944
 - [ ] bzoj 4407

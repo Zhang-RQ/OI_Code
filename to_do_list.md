@@ -62,7 +62,7 @@
 
 ### KD tree
 
-- [x] bzoj 1941
+- [ ] bzoj 1941
 - [ ] bzoj 2716
 - [ ] bzoj 2648
 - [ ] bzoj 2850
@@ -78,9 +78,8 @@
 
 ### 莫比乌斯反演
 
-- [ ] bzoj 1101
-- [ ] bzoj 2301
-- [ ] bzoj 2820
+- [x] bzoj 2301
+- [x] bzoj 2820
 - [ ] bzoj 3529
 - [ ] bzoj 2154
 - [ ] bzoj 2693

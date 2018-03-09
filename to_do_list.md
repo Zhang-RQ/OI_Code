@@ -62,7 +62,7 @@
 - [x] hiho 1398
 - [x] bzoj 1305
 - [x] bzoj 3144
-- [ ] bzoj 2756
+- [x] bzoj 2756
 - [ ] bzoj 2127
 - [ ] bzoj 1565
 - [ ] bzoj 2132

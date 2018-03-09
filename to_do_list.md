@@ -66,7 +66,7 @@
 - [x] bzoj 2127
 - [ ] bzoj 1565
 - [x] bzoj 2132
-- [ ] bzoj 1497
+- [x] bzoj 1497
 - [ ] poj 2987
 - [ ] bzoj 1797
 - [ ] bzoj 3894

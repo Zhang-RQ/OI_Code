@@ -68,13 +68,12 @@
 - [x] bzoj 2132
 - [x] bzoj 1497
 - [ ] poj 2987
-- [ ] bzoj 1797
+- [x] bzoj 1797
 - [ ] bzoj 3894
 - [ ] bzoj 3275
 - [ ] bzoj 2039
 - [ ] bzoj 2245
 - [ ] bzoj 1927
-- [ ] AHOI2009 最小割
 
 ### LCT
 

@@ -63,7 +63,7 @@
 - [x] bzoj 1305
 - [x] bzoj 3144
 - [x] bzoj 2756
-- [ ] bzoj 2127
+- [x] bzoj 2127
 - [ ] bzoj 1565
 - [ ] bzoj 2132
 - [ ] bzoj 1497

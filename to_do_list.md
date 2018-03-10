@@ -72,8 +72,8 @@
 - [x] bzoj 3894
 - [x] bzoj 3275
 - [x] bzoj 2039
-- [ ] bzoj 2245
-- [ ] bzoj 1927
+- [x] bzoj 2245
+- [x] bzoj 1927
 
 ### LCT
 

@@ -71,7 +71,7 @@
 - [x] bzoj 1797
 - [x] bzoj 3894
 - [x] bzoj 3275
-- [ ] bzoj 2039
+- [x] bzoj 2039
 - [ ] bzoj 2245
 - [ ] bzoj 1927
 

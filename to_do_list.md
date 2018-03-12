@@ -66,7 +66,7 @@
 - [ ] POJ 1423
 - [ ] POJ 2356
 - [x] BZOJ 1042
-- [ ] BZOJ 2393
+- [x] BZOJ 2393
 - [ ] BZOJ 1853
 - [ ] BZOJ 2190
 - [ ] BZOJ 2839

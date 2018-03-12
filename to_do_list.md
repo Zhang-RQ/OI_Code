@@ -57,15 +57,15 @@
 - [x] BZOJ 2467
 - [x] BZOJ  2729
 - [x] BZOJ 3505
-- [x] BZOJ 2142
+- [ ] BZOJ 2142
 - [x] BZOJ 4710
 - [x] BZOJ 2982
-- [ ] BZOJ 2111
+- [x] BZOJ 2111
 - [ ] BZOJ 1005
 - [ ] BZOJ 3782
 - [ ] POJ 1423
 - [ ] POJ 2356
-- [ ] BZOJ 1042
+- [x] BZOJ 1042
 - [ ] BZOJ 2393
 - [ ] BZOJ 1853
 - [ ] BZOJ 2190

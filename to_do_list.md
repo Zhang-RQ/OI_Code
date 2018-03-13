@@ -70,7 +70,7 @@
 - [x] BZOJ 1853
 - [x] BZOJ 2190
 - [x] BZOJ 2839
-- [ ] BZOJ 3622
+- [x] BZOJ 3622
 - [ ] BZOJ 1856
 - [ ] BZOJ 2822
 - [ ] BZOJ 2476

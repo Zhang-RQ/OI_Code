@@ -16,10 +16,11 @@ char get()
 {
     return rand()%2+'a';
 }
-int main()
+int main(int argc,char* argv[])
 {
     srand((ull)new ull);
-    int n=1000;
+    int n;
+    sscanf(argv[1],"%d",&n);
     for(int i=1;i<=n;i++)
         putchar(get());
     puts("");

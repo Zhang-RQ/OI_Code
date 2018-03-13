@@ -63,8 +63,6 @@
 - [x] BZOJ 2111
 - [ ] BZOJ 1005
 - [x] BZOJ 3782
-- [ ] POJ 1423
-- [ ] POJ 2356
 - [x] BZOJ 1042
 - [x] BZOJ 2393
 - [x] BZOJ 1853
@@ -72,8 +70,6 @@
 - [x] BZOJ 2839
 - [x] BZOJ 3622
 - [x] BZOJ 1856
-- [ ] BZOJ 2822
-- [ ] BZOJ 2476
 
 ### 分块
 
@@ -113,7 +109,7 @@
 
 ### KD tree
 
-- [ ] bzoj 1941
+- [x] bzoj 1941
 - [ ] bzoj 2716
 - [ ] bzoj 2648
 - [ ] bzoj 2850

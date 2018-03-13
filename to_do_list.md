@@ -62,7 +62,7 @@
 - [x] BZOJ 2982
 - [x] BZOJ 2111
 - [ ] BZOJ 1005
-- [ ] BZOJ 3782
+- [x] BZOJ 3782
 - [ ] POJ 1423
 - [ ] POJ 2356
 - [x] BZOJ 1042

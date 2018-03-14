@@ -112,10 +112,10 @@
 - [x] bzoj 1941
 - [x] bzoj 2716
 - [x] bzoj 2648
-- [ ] bzoj 2850
+- [x] bzoj 2850
 - [x] bzoj 4066
-- [ ] bzoj 2683
-- [ ] bzoj 4154
+- [x] bzoj 2683
+- [x] bzoj 4154
 - [ ] bzoj 3489
 - [ ] uoj 119
 - [ ] bzoj 4056

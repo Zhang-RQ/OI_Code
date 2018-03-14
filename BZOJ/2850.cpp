@@ -1,4 +1,3 @@
-//WA
 #include<cstdio>
 #include<cstring>
 #include<cstdlib>
@@ -29,7 +28,8 @@ struct Point{
     }
 }pnt[MAXN];
 struct node{
-    int co[2],x[2],y[2],sum,val,son[2];
+    int co[2],x[2],y[2],val,son[2];
+    ll sum;
 }t[MAXN];
 void pushup(int x)
 {

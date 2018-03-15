@@ -116,9 +116,7 @@
 - [x] bzoj 4066
 - [x] bzoj 2683
 - [x] bzoj 4154
-- [ ] bzoj 3489
-- [ ] uoj 119
-- [ ] bzoj 4056
+- [x] bzoj 3489
 - [ ] hdu 2966
 - [ ] bzoj 2626
 - [ ] bzoj 4520​

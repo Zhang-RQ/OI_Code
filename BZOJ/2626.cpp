@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 //WA
-=======
->>>>>>> 025c84597fb0e7c3162be5cc7125992f91354572
 #include<cstdio>
 #include<cstring>
 #include<cstdlib>

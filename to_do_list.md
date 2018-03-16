@@ -34,7 +34,7 @@
 - [x] luogu 3812
 - [ ] bzoj 2460
 - [x] sgu 275
-- [ ] hdu 3949
+- [x] hdu 3949
 - [ ] bzoj 2115
 - [ ] bzoj 2844
 - [ ] bzoj 3811

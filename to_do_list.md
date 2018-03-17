@@ -36,7 +36,7 @@
 - [x] sgu 275
 - [x] hdu 3949
 - [x] bzoj 2115
-- [ ] bzoj 2844
+- [x] bzoj 2844
 - [ ] bzoj 3811
 - [ ] bzoj 2115
 - [ ] cf 724 G

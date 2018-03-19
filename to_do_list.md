@@ -69,11 +69,10 @@
 - [x] NTT
 - [x] bzoj 2179
 - [x] bzoj 2194
-- [ ] bzoj 3527
+- [x] bzoj 3527
+- [x] bzoj 4259
 - [ ] bzoj 3509
-- [ ] bzoj 4259
 - [ ] bzoj 3456
-- [ ] bzoj 4503
 - [ ] bzoj 2287
 - [ ] bzoj 4555
 - [ ] bzoj 3625

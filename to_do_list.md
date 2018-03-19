@@ -72,7 +72,7 @@
 - [x] bzoj 3527
 - [x] bzoj 4259
 - [ ] bzoj 3509
-- [ ] bzoj 3456
+- [x] bzoj 3456
 - [ ] bzoj 4555
 - [ ] bzoj 3625
 - [ ] bzoj 3557
@@ -80,7 +80,7 @@
 - [ ] bzoj 3992
 - [ ] luogu U18204 / loj 2286
 - [x] hdu 5730
-- [ ] hdu 5830
+- [ ] hdu 5829
 - [ ] hdu 4609
 - [ ] 分治
 

@@ -12,26 +12,34 @@
 #include<complex>
 typedef long long ll;
 typedef unsigned long long ull;
-typedef std::complex<double> C;
 using namespace std;
 const int MAXN=2221000;
 const double PI=acos(-1);
-C a[MAXN],b[MAXN];
+struct Complex{
+    double real,imag;
+    Complex(){}
+    Complex(double _real,double _imag):real(_real),imag(_imag){}
+    inline Complex operator + (const Complex &rhs) const {return Complex(real+rhs.real,imag+rhs.imag);}
+    inline Complex operator - (const Complex &rhs) const {return Complex(real-rhs.real,imag-rhs.imag);}
+    inline Complex operator * (const Complex &rhs) const {return Complex(real*rhs.real-rhs.imag*imag,imag*rhs.real+rhs.imag*real);}
+    inline Complex operator * (const double &rhs) const {return Complex(real*rhs,imag*rhs);}
+};
+Complex a[MAXN],b[MAXN];
 int r[MAXN],n,m,x,tot,lg2,l2;
-void FFT(C *c,int f,int l)
+void FFT(Complex *c,int f,int l)
 {
     for(int i=0;i<l;i++)
         if(i<r[i]) swap(c[i],c[r[i]]);
     for(int i=2;i<=l;i<<=1)
     {
-        C ww(cos(2.0*PI/i),sin(f*2.0*PI/i));
+        Complex ww(cos(2.0*PI/i),sin(f*2.0*PI/i));
         for(int j=0;j<l;j+=i)
         {
-            C w(1,0);
+            Complex w(1,0);
             for(int k=0;k<=i/2-1;k++)
             {
-                C t=w*c[j+k+i/2];
-                C u=c[j+k];
+                Complex t=w*c[j+k+i/2];
+                Complex u=c[j+k];
                 c[j+k+i/2]=u-t;
                 c[j+k]=u+t;
                 w=ww*w;
@@ -45,10 +53,10 @@ int main()
     scanf("%d%d",&n,&m);
     for(int i=0;i<=n;i++)
         scanf("%d",&x),
-        a[i]=C(x,0);
+        a[i]=Complex(x,0);
     for(int i=0;i<=m;i++)
         scanf("%d",&x),
-        b[i]=C(x,0);
+        b[i]=Complex(x,0);
     for(tot=1;tot<=n+m;tot<<=1,lg2++);
     for(int i=0;i<tot;i++)
         r[i]=(r[i>>1]>>1)|((i&1)<<(lg2-1));
@@ -58,6 +66,6 @@ int main()
         a[i]=a[i]*b[i];
     FFT(a,-1,tot);
     for(int i=0;i<n+m+1;i++)
-        printf("%d ",(int)(a[i].real()/tot+0.5));
+        printf("%d ",(int)(a[i].real/tot+0.5));
     puts("");
 }

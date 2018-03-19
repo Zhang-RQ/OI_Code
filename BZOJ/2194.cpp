@@ -15,7 +15,8 @@ typedef unsigned long long ull;
 using namespace std;
 const int P=((7*17)<<23)+1;
 const int g=3;
-int rev[100010<<3];
+ll a[262200],b[262200],c[262200];
+int rev[262200];
 ll ksm(ll a,ll b)
 {
     ll ret=1;
@@ -48,24 +49,23 @@ void NTT(ll *a,int n,bool flag)
         }
     }
 }
-int n,m,tot,lg2;
-ll a[100010<<3],b[100010<<3],c[100010<<3];
+int n,tot,lg2,inv;
 int main()
 {
-    scanf("%d%d",&n,&m);
-    for(int i=0;i<=n;i++) scanf("%lld",&a[i]);
-    for(int i=0;i<=m;i++) scanf("%lld",&b[i]);
-    for(tot=1;tot<=n+m;tot<<=1,lg2++);
+    scanf("%d",&n);
+    for(int i=0;i<n;i++)
+        scanf("%lld%lld",&a[i],&b[i]);
+    reverse(b,b+n);
+    for(tot=1;tot<=2*n;tot<<=1,lg2++);
     for(int i=0;i<tot;i++)
         rev[i]=(rev[i>>1]>>1)|((i&1)<<(lg2-1));
     NTT(a,tot,1);NTT(b,tot,1);
     for(int i=0;i<tot;i++)
         c[i]=a[i]*b[i]%P;
     NTT(c,tot,0);
-    ll inv=ksm(tot,P-2);
+    inv=ksm(tot,P-2);
     for(int i=0;i<tot;i++)
         c[i]=c[i]*inv%P;
-    for(int i=0;i<n+m+1;i++)
-        printf("%lld ",c[i]);
-    puts("");
+    for(int i=n-1;i<n*2-1;i++)
+        printf("%lld\n",c[i]);
 }

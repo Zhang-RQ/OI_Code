@@ -77,7 +77,7 @@
 - [ ] bzoj 3625
 - [ ] bzoj 3557
 - [ ] bzoj 3160
-- [ ] bzoj 3992
+- [x] bzoj 3992
 - [ ] luogu U18204 / loj 2286
 - [x] hdu 5730
 - [ ] hdu 5829

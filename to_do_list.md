@@ -79,7 +79,7 @@
 - [x] bzoj 3513
 - [ ] bzoj 3625
 - [ ] bzoj 3557
-- [ ] bzoj 3160
+- [x] bzoj 3160
 - [x] bzoj 3992
 - [ ] luogu U18204 / loj 2286
 - [x] hdu 5730

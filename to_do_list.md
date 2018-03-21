@@ -69,7 +69,7 @@
 - [x] POJ 3744
 - [x] POJ 2096
 - [x] ZOJ 3329
-- [ ] HDU 4035
+- [x] HDU 4035 (⭐)
 - [ ] Codeforces 148D
 
 ### 数位DP

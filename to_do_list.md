@@ -85,7 +85,7 @@
 - [x] bzoj 3456
 - [x] bzoj 4555
 - [x] bzoj 3513
-- [ ] bzoj 5093
+- [x] bzoj 5093
 - [ ] bzoj 3625
 - [ ] bzoj 3557
 - [x] bzoj 3160

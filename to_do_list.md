@@ -190,7 +190,6 @@
 - [ ] BZOJ 3926
 - [x] BZOJ 2780
 - [x] BZOJ 1396
-- [ ] BZOJ 2865
-- [ ] BZOJ 3473
+- [x] BZOJ 3473
 - [ ] BZOJ 4032
 - [ ] BZOJ 4768

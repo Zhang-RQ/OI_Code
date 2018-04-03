@@ -193,3 +193,10 @@
 - [x] BZOJ 3473
 - [ ] BZOJ 4032
 - [ ] BZOJ 4768
+- [x] BZOJ 3238
+- [x] BZOJ 4516
+- [x] BZOJ 4698
+- [ ] BZOJ 1717
+- [ ] BZOJ 3676
+- [ ] BZOJ 3277
+- [ ] BZOJ 3473

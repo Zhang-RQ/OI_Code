@@ -1,8 +1,3 @@
-#pragma GCC optimize("Ofast,no-stack-protector")
-#pragma GCC optimize("-funsafe-loop-optimizations")
-#pragma GCC optimize("-funroll-loops")
-#pragma GCC optimize("-fwhole-program")
-#pragma GCC target("avx")
 #include<cstdio>
 #include<cstring>
 #include<cstdlib>

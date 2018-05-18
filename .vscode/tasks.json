@@ -21,6 +21,7 @@
                     "\"${file}\"",
                     "--std=c++11",
                     "-o",
+                    "-O2",
                     "\"${fileDirname}\\${fileBasenameNoExtension}.exe\""
                 ]
             }

@@ -17,11 +17,12 @@
             "windows": {
                 "command": "g++",
                 "args": [
+                    "-O2",
+                    "-DLOCAL",
                     "-ggdb",
                     "\"${file}\"",
                     "--std=c++11",
                     "-o",
-                    "-O2",
                     "\"${fileDirname}\\${fileBasenameNoExtension}.exe\""
                 ]
             }

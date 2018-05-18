@@ -1,5 +1,5 @@
 from cyaron import *
-io=IO(file_prefix="in",disable_output=True)
+io=IO("data.in")
 n=1000000
 m=2000000
 graph = Graph.graph(n, m, self_loop=False,repeated_edges=False,directed=True, weight_limit=(1,200))

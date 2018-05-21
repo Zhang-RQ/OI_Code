@@ -2,6 +2,12 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}"
+        },
+        {
             "name": "(gdb) Launch", // 配置名称，将会在启动配置的下拉菜单中显示
             "type": "cppdbg", // 配置类型，这里只能为cppdbg
             "request": "launch", // 请求配置类型，可以为launch（启动）或attach（附加）

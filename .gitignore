@@ -6,3 +6,4 @@
 *.ucd
 test.cpp
 /Temp/*
+/My_problem/*

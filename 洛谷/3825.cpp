@@ -62,12 +62,14 @@ inline int get(int i,char x) //x is upper
     if(s[i]=='a') return x=='B'?i:i+n;
     if(s[i]=='b') return x=='A'?i:i+n;
     if(s[i]=='c') return x=='A'?i:i+n;
+    return -1;
 }
 inline int get_c(int i,int x)
 {
     if(s[i]=='a') return x==1?'B':'C';
     if(s[i]=='b') return x==1?'A':'C';
     if(s[i]=='c') return x==1?'A':'B';
+    return -1;
 }
 inline int neg(int x){return x<=n?x+n:x-n;}
 void build()

@@ -61,14 +61,15 @@ void change(int x,int l,int r,int pos,int val)
 Matrix query(int x,int l,int r,int ql,int qr)
 {
     if(ql<=l&&r<=qr) return t[x];
-    int mid=(l+r)>>1;Matrix ret;
-    ret[0][0]=ret[0][2]=0;
-    if(ql<=mid) ret=ret*query(x<<1,l,mid,ql,qr);
-    if(qr>mid)  ret=ret*query(x<<1|1,mid+1,r,ql,qr);
-    return ret;
+    int mid=(l+r)>>1;
+    if(qr<=mid) return query(x<<1,l,mid,ql,qr);
+    else if(ql>mid) return query(x<<1|1,mid+1,r,ql,qr);
+    else return query(x<<1,l,mid,ql,qr)*query(x<<1|1,mid+1,r,ql,qr);
 }
 int main()
 {
+    Matrix tmp;
+    tmp[0][0]=tmp[0][2]=0;
     scanf("%d",&n);
     for(int i=1;i<=n;i++) scanf("%d",&val[i]);
     build(1,1,n);
@@ -77,6 +78,11 @@ int main()
     {
         scanf("%d%d%d",&opt,&x,&y);
         if(opt==0) change(1,1,n,x,y);
-        else printf("%d\n",query(1,1,n,x,y)[0][1]);
+        else
+        {
+            Matrix t=query(1,1,n,x,y);
+            t=tmp*t;
+            printf("%d\n",t[0][1]);
+        }
     }
 }

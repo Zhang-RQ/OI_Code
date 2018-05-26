@@ -4,6 +4,9 @@
 *.in
 *.ing
 *.ucd
+*.lib
+*.pdb
+*.exp
 test.cpp
 /Temp/*
 /My_problem/*

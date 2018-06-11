@@ -13,14 +13,6 @@
 typedef long long ll;
 typedef unsigned long long ull;
 using namespace std;
-ll c[1010][1010];
-void calc()
-{
-    c[0][0]=1;
-    for(int i=1;i<=1000;i++)
-        for(int j=1;j<=1000;j++)
-            c[i][j]=c[i-1][j-1]+c[i-1][j];
-}
 ll gcd(ll a,ll b)
 {
     if(!b) return a;
@@ -29,7 +21,6 @@ ll gcd(ll a,ll b)
 int n,m;
 int main()
 {
-    calc();
     scanf("%d%d",&n,&m);
     n++;m++;
     ll t=n*m;

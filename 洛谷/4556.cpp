@@ -78,7 +78,7 @@ void dfs3(int x,int fa)
 	for(int v:g[x])
 		if(v!=fa)
 			dfs3(v,x),rt[x]=merge(rt[x],rt[v],1,100000);
-	Ans[x]=t[rt[x]].ps;
+	Ans[x]=t[rt[x]].mx==0?0:t[rt[x]].ps;
 }
 
 int LCA(int x,int y)

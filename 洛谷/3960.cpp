@@ -1,156 +1,179 @@
 #include<cstdio>
-#include<iostream>
-#include<cmath>
-#include<algorithm>
 #include<cstring>
+#include<cstdlib>
+#include<cctype>
+#include<cmath>
+#include<iostream>
+#include<algorithm>
 #include<vector>
-#include<map>
 #include<set>
+#include<map>
 #include<queue>
 #include<stack>
-#include<bitset>
-using namespace std;
+#include<cassert>
+
 typedef long long ll;
 typedef unsigned long long ull;
-#define ls(x) tree[x].son[0]
-#define rs(x) tree[x].son[1]
-#define fa(x) tree[x].fa
+
+using namespace std;
+
+const int MAXN=3E5+10;
+
+#define ls(x) t[x].son[0]
+#define rs(x) t[x].son[1]
+#define fa(x) t[x].fa
+#define rson(x) (rs(fa(x))==x)
+
+struct dat{
+    ll v,siz;
+    dat(){}
+    dat(ll _,ll __){siz=__;v=_;}
+    pair<dat,dat> split(ll k) const {return make_pair(dat(v,k),dat(v+k,siz-k));}
+};
+
 struct node{
-    int son[2],fa,val,siz;
-    void clear()
-    {
-        son[0]=son[1]=fa=val=siz=0;
-    }
-}tree[3000010];
-int root[6010],cnt,arr[301000];
-void pushup(int x)
-{
-    fa(ls(x))=fa(rs(x))=x;
-    tree[x].siz=tree[ls(x)].siz+tree[rs(x)].siz+1;
-}
+    int son[2],fa;
+    ll siz;
+    dat v;
+}t[MAXN<<5];
+
+int rt[MAXN],cnt,n,m,q;
+
+void pushup(int x) {if(x) t[x].siz=t[ls(x)].siz+t[rs(x)].siz+t[x].v.siz;}
+
 void rotate(int x,int row)
 {
     int y=fa(x),z=fa(y);
-    bool rsx=(rs(y)==x),rsy=(rs(z)==y);
-    if(z)
-        tree[z].son[rsy]=x,tree[x].fa=z;
-    else tree[x].fa=0,root[row]=x;
-    tree[y].son[rsx]=tree[x].son[!rsx];
-    tree[x].son[!rsx]=y;
-    pushup(y);
-    pushup(x);
+    bool rsx=rson(x),rsy=rson(y);
+    if(z) t[z].son[rsy]=x;
+    else rt[row]=x;
+    t[y].son[rsx]=t[x].son[!rsx];
+    t[x].son[!rsx]=y;
+    fa(t[y].son[rsx])=y;
+    fa(y)=x;fa(x)=z;
+    pushup(y);pushup(x);
 }
+
 void splay(int x,int row)
 {
     while(fa(x))
     {
-        if(fa(fa(x)))
-            rotate((ls(fa(x))==x)^(ls(fa(fa(x))))?fa(x):x,row);
+        if(fa(fa(x))) rotate(rson(x)^rson(fa(x))?x:fa(x),row);
         rotate(x,row);
     }
-}
-int kth(int x,int pos)
-{
-    //printf("x=%d,pos=%d,siz(ls)=%d,ls=%d,rs=%d\n",x,pos,tree[ls(x)].siz,ls(x),rs(x));
-    if(tree[ls(x)].siz+1==pos)
-        return x;
-    if(tree[ls(x)].siz+1>pos)
-        return kth(ls(x),pos);
-    else return kth(rs(x),pos-1-tree[ls(x)].siz);
-}
-void append(int row,int pos,int val)
-{
-    int x=kth(root[row],pos);
-    //printf("x=%d pos=%d\n",x,pos);
-    splay(x,row);
-    tree[++cnt].val=val;
-    tree[cnt].son[1]=tree[x].son[1];
-    tree[x].son[1]=cnt;
-    pushup(cnt);
     pushup(x);
 }
-int query(int row,int pos)
+
+int kth(int x,ll k)
 {
-    int x=kth(root[row],pos),y=kth(root[row],pos-1);
-    int ret=tree[x].val;
-    splay(x,row);
-    root[row]=y;
-    tree[y].fa=0;
-    tree[y].son[1]=tree[x].son[1];
-    tree[x].clear();
-    pushup(y);
-    return ret;
+    if(t[ls(x)].siz<k&&k<=t[ls(x)].siz+t[x].v.siz) return x;
+    if(t[ls(x)].siz+t[x].v.siz>=k) return kth(ls(x),k);
+    else return kth(rs(x),k-t[ls(x)].siz-t[x].v.siz);
 }
-void build(int row,int n)
+
+void insert(int p,int row,dat v) //after p(rank)
 {
-    int pre=0;
-    for(int i=1;i<=n;i++)
+    if(!rt[row])
     {
-        tree[++cnt].val=arr[i];
-        tree[cnt].son[0]=pre;
-        pre=cnt;
-        pushup(cnt);
+        rt[row]=++cnt;
+        t[cnt].v=v;pushup(cnt);
+        return;
     }
-    root[row]=pre;
-    splay(kth(root[row],n/2),row);
-}
-int n,m,q,x,y,ans,tmp;
-void output(int x)
-{
-    if(ls(x)) output(ls(x));
-    printf("id=%d,val=%d,ls=%d,rs=%d,fa=%d,siz=%d\n",x,tree[x].val,ls(x),rs(x),fa(x),tree[x].siz);
-    if(rs(x)) output(rs(x));
-}
-int main()
-{
-    //freopen("phalanx.out","w",stdout);
-    scanf("%d%d%d",&n,&m,&q);
-    for(int i=1;i<=n+2;i++)
-        arr[i]=(i-1)*m;
-    build(0,n+2);
-    for(int i=1;i<=q;i++)
+    if(p==0)
     {
-        //printf("%d:\n",i);
-        scanf("%d%d",&x,&y);
-        if(!root[x])
+        int x=rt[row];
+        while(ls(x)) x=ls(x);
+        splay(x,row);
+        int y=++cnt;
+        ls(x)=y;fa(y)=x;
+        t[y].v=v;pushup(y);
+        return;
+    }
+    int x=kth(rt[row],p);
+    splay(x,row);
+    if(rs(x))
+    {
+        x=rs(x);
+        while(ls(x)) x=ls(x);
+        int y=++cnt;
+        fa(y)=x;t[y].v=v;ls(x)=y;
+        while(fa(y)) pushup(y),y=fa(y);
+        pushup(y);
+    }
+    else
+    {
+        int y=++cnt;
+        rs(x)=y;
+        fa(y)=x;t[y].v=v;
+        pushup(y);pushup(x);
+    }
+}
+
+dat split(int p,int row) //[l,p-1] ,[p,p] ,[p+1,r] return [p,p] p is rank
+{
+    int x=kth(rt[row],p);
+    splay(x,row);
+    pair<dat,dat> S=t[x].v.split(p-t[ls(x)].siz-1);
+    if(S.first.siz==0)
+    {
+        if(!ls(x))
         {
-            for(int j=1;j<=m+1;j++)
-                arr[j]=(x-1)*m+j-1;
-            build(x,m+1);
-        }
-        if(y!=m)
-        {
-            /*puts("1:");
-            output(root[x]);
-            puts("");*/
-            ans=query(x,y+1);
-            /*puts("2:");
-            output(root[0]);
-            puts("");*/
-            tmp=query(0,x+1);
-            //printf("%d %d\n",ans,tmp);
-            //puts("3:");
-            /*output(root[0]);
-            puts("");*/
-            append(0,n,ans);
-            /*puts("4:");
-            output(root[x]);
-            puts("");*/
-            append(x,m-1,tmp);
-            /*puts("root[x]:");
-            output(root[x]);
-            puts("root[0]:");
-            output(root[0]);*/
+            rt[row]=rs(x);
+            fa(rs(x))=0;
         }
         else
         {
-            //output(root[0]);
-            ans=query(0,x+1);
-            printf("%d\n",ans);
-            append(0,m,ans);
-            /*puts("root[0]:");
-            output(root[0]);*/
+            int y=ls(x);fa(y)=0;
+            while(rs(y)) y=rs(y);
+            splay(y,row);
+            rs(y)=rs(x);fa(rs(x))=y;
+            pushup(y);
         }
-        //puts("\n");
+    }
+    else t[x].v=S.first,pushup(x);
+    if(S.second.siz!=1)
+    {
+        pair<dat,dat> T=S.second.split(1);
+        insert(p-1,row,T.second);
+        return T.first;
+    }
+    return S.second;
+}
+
+int main()
+{
+    scanf("%d%d%d",&n,&m,&q);
+    for(int i=1;i<=n;i++)
+    {
+        rt[i]=++cnt;
+        t[cnt].v.v=1ll*(i-1)*m+1;
+        t[cnt].v.siz=m-1;pushup(cnt);
+    }
+    for(int i=1;i<=n;i++)
+    {
+        ++cnt;
+        fa(rt[0])=cnt;
+        ls(cnt)=rt[0];
+        t[cnt].v.v=1ll*i*m;
+        t[cnt].v.siz=1;
+        pushup(cnt);rt[0]=cnt;
+    }
+    for(int i=1,x,y;i<=q;i++)
+    {
+        scanf("%d%d",&x,&y);
+        if(y!=m)
+        {
+            dat p=split(y,x);
+            printf("%lld\n",p.v);
+            dat q=split(x,0);
+            insert(m-2,x,q);
+            insert(n-1,0,p);
+        }
+        else
+        {
+            dat p=split(x,0);
+            printf("%lld\n",p.v);
+            insert(n-1,0,p);
+        }
     }
 }

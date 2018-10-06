@@ -49,7 +49,7 @@ void kmp()
         if(j==len2)
             ans.push_back(i-j),
             --i,
-            j=0;
+            j=nxt[j];
     }
 }
 int main()

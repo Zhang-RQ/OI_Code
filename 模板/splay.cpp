@@ -1,209 +1,162 @@
 #include<cstdio>
-#include<iostream>
-#include<cmath>
-#include<algorithm>
 #include<cstring>
+#include<cstdlib>
+#include<cctype>
+#include<cmath>
+#include<iostream>
+#include<algorithm>
 #include<vector>
-#include<map>
 #include<set>
+#include<map>
 #include<queue>
 #include<stack>
-#include<bitset>
-#define MAXN 100010
-#define INF 2147483640
-using namespace std;
+#include<cassert>
+
 typedef long long ll;
-int fa[MAXN],son[MAXN][3],val[MAXN],tims[MAXN],siz[MAXN],cnt=0;
-int root;
-inline void rotate(int x,int w) //w=1左旋 w=2右旋
+typedef unsigned long long ull;
+
+using namespace std;
+
+const int MAXN=1E5+10;
+
+struct node{
+    int son[2],fa,v,siz,tms;
+}t[MAXN];
+
+int Rt,cnt,n;
+
+#define ls(x) t[x].son[0]
+#define rs(x) t[x].son[1]
+#define fa(x) t[x].fa
+#define rson(x) (rs(fa(x))==x)
+
+int nd(int val)
 {
-    int y=fa[x];
-    siz[y]=siz[y]-siz[x]+siz[son[x][w]];
-    siz[x]=siz[x]-siz[son[x][w]]+siz[y];
-    son[y][3-w]=son[x][w];
-    if(son[x][w]) fa[son[x][w]]=y;
-    fa[x]=fa[y];
-    if(fa[y])
-    {
-        if(son[fa[y]][1]==y)
-            son[fa[y]][1]=x;
-        else son[fa[y]][2]=x;
-    }
-    fa[y]=x;
-    son[x][w]=y;
+    ++cnt;
+    t[cnt].v=val;t[cnt].siz=t[cnt].tms=1;
+    return cnt;
 }
-inline void splay(int x)
+
+void pushup(int x) {t[x].siz=t[ls(x)].siz+t[rs(x)].siz+t[x].tms;}
+
+void rotate(int x)
 {
-    int y;
-    while(fa[x])
-    {
-        y=fa[x];
-        if(!fa[y])
-        {
-            if(son[y][1]==x) rotate(x,2);
-            else rotate(x,1);
-        }
-        else if(son[fa[y]][1]==y)
-            if(son[y][1]==x)
-                rotate(y,2),
-                rotate(x,2);
-            else
-                rotate(x,1),
-                rotate(x,2);
-        else
-            if(son[y][1]==x)
-                rotate(x,2),
-                rotate(x,1);
-            else
-                rotate(y,1),
-                rotate(x,1);
-    }
-    root=x;
+    int y=fa(x),z=fa(y);
+    bool rsx=rson(x),rsy=rson(y);
+    if(z) t[z].son[rsy]=x;
+    else Rt=x;
+    t[y].son[rsx]=t[x].son[!rsx];
+    t[x].son[!rsx]=y;
+    fa(t[y].son[rsx])=y;fa(y)=x;fa(x)=z;
+    pushup(y);
 }
-inline int search(int x,int value)
+
+void splay(int x)
 {
-    while(value!=val[x])
+    while(fa(x))
     {
-        if(val[x]==value) return x;
-        if(value<val[x])
-        {
-            if(!son[x][1]) break;
-            x=son[x][1];
-        }
-        else
-        {
-            if(!son[x][2]) break;
-            x=son[x][2];
-        }
+        if(fa(fa(x))) rotate(rson(x)^rson(fa(x))?x:fa(x));
+        rotate(x);
     }
+    pushup(x);
+}
+
+int find(int x,int val) //return node
+{
+    if(t[x].v==val) return x;
+    if(t[x].v<val) return rs(x)?find(rs(x),val):x;
+    else return ls(x)?find(ls(x),val):x;
+}
+
+int Pred(int x) //return node
+{
+    splay(x);
+    x=ls(x);
+    while(rs(x)) x=rs(x);
     return x;
 }
-inline void insert(int value)
+
+int Succ(int x) //return node
 {
-    int k,tk;
-    bool flag;
-    if(!cnt)
+    splay(x);
+    x=rs(x);
+    while(ls(x)) x=ls(x);
+    return x;
+}
+
+void insert(int val)
+{
+    if(!Rt) return Rt=nd(val),void();
+    int x=find(Rt,val);
+    if(t[x].v==val) return splay(x),++t[x].tms,++t[x].siz,void();
+    int z=nd(val);
+    t[x].son[val>t[x].v]=z;
+    fa(z)=x;
+    while(x) pushup(x),x=fa(x);
+    splay(z);
+}
+
+void erase(int val)
+{
+    int x=find(Rt,val);
+    if(t[x].tms>1) return splay(x),--t[x].tms,--t[x].siz,void();
+    splay(x);
+    if(rs(x))
     {
-        cnt=1;root=1;
-        val[1]=value;
-        tims[1]=1;
-        siz[1]=1;
-        return;
+        int y=Succ(x);
+        fa(rs(x))=0;
+        splay(y);Rt=y;
+        ls(Rt)=ls(x);
+        fa(ls(Rt))=Rt;
+        pushup(Rt);
     }
-    k=search(root,value);
-    if(val[k]==value) {++tims[k];tk=k;flag=true;}
     else
     {
-        ++cnt;
-        val[cnt]=value;
-        tims[cnt]=1;
-        siz[cnt]=1;
-        fa[cnt]=k;
-        if(val[cnt]<val[k]) son[k][1]=cnt;
-        else son[k][2]=cnt;
-        flag=false;
-    }
-    while(k)
-    {
-        siz[k]++;
-        k=fa[k];
-    }
-    if(flag) splay(tk);
-    else splay(cnt);
-}
-inline int extreme(int x,int w) //w=1最小,w=2最大
-{
-    int k;
-    if(w==1) k=search(x,-INF);
-    else k=search(x,INF);
-    splay(k);
-    return val[k];
-}
-inline void del(int value)
-{
-    int k;
-    k=search(root,value);
-    splay(k);
-    if(val[k]!=value) return;
-    else
-    {
-        if(tims[k]>1)
-        {
-            tims[k]--;
-            siz[k]--;
-        }
-        else if(!son[k][1])
-        {
-            int y=son[k][2];
-            fa[y]=0;
-            root=y;
-            son[k][2]=0;
-            val[k]=0;siz[k]=0;
-            tims[k]=0;
-        }
-        else
-        {
-            fa[son[k][1]]=0;
-            extreme(son[k][1],2);
-            siz[root]+=siz[son[k][2]];
-            son[root][2]=son[k][2];
-            if(son[root][2]!=0) fa[son[root][2]]=root;
-            val[k]=0;siz[k]=0;tims[k]=0;son[k][1]=son[k][2]=0;
-        }
+        fa(ls(x))=0;
+        Rt=ls(x);
     }
 }
-inline int pred(int value)
+
+int Rank(int val)
 {
-    int k=search(root,value);
-    splay(k);
-    if(val[k]<value) return val[k];
-    else
-        return extreme(son[k][1],2);
+    int x=find(Rt,val);
+    if(t[x].v<val)  x=Succ(x);
+    splay(x);
+    return t[ls(x)].siz+1;
 }
-inline int succ(int value)
+
+int kth(int x,int k)//return val
 {
-    int k=search(root,value);
-    splay(k);
-    if(val[k]>value) return val[k];
-    else
-        return extreme(son[k][2],1);
+    if(t[ls(x)].siz+1<=k&&k<=t[ls(x)].siz+t[x].tms) return t[x].v;
+    if(t[ls(x)].siz+t[x].tms>k) return kth(ls(x),k);
+    else return kth(rs(x),k-t[x].tms-t[ls(x)].siz);
 }
-inline int findnum(int value)
+
+int Pred_val(int val) //return val
 {
-    int k=search(root,value);
-    splay(k);
-    return siz[son[k][1]]+1;
+    int x=find(Rt,val);
+    if(t[x].v<val) return t[x].v;
+    return t[Pred(x)].v;
 }
-inline int kth(int th)
+
+int Succ_val(int val) //return val
 {
-    int i=root;
-    while(!(th>=siz[son[i][1]]+1&&th<=siz[son[i][1]]+tims[i])&&(i!=0))
-    {
-        if(th>siz[son[i][1]]+tims[i])
-        {
-            th-=siz[son[i][1]]+tims[i];
-            i=son[i][2];
-        }
-        else i=son[i][1];
-    }
-    splay(i);
-    return i;
+    int x=find(Rt,val);
+    if(t[x].v>val) return t[x].v;
+    return t[Succ(x)].v;
 }
+
 int main()
 {
-    int n,ops,x;
     scanf("%d",&n);
-    for(int i=1;i<=n;i++)
+    for(int i=1,opt,x;i<=n;i++)
     {
-        scanf("%d%d",&ops,&x);
-        switch(ops)
-        {
-            case 1: insert(x);break;
-            case 2: del(x);break;
-            case 3: printf("%d\n",findnum(x));break;
-            case 4: printf("%d\n",val[kth(x)]);break;
-            case 5: printf("%d\n",pred(x));break;
-            case 6: printf("%d\n",succ(x));break;
-        }
+        scanf("%d%d",&opt,&x);
+        if(opt==1) insert(x);
+        else if(opt==2) erase(x);
+        else if(opt==3) printf("%d\n",Rank(x));
+        else if(opt==4) printf("%d\n",kth(Rt,x));
+        else if(opt==5) printf("%d\n",Pred_val(x));
+        else if(opt==6) printf("%d\n",Succ_val(x));
     }
 }

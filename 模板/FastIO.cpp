@@ -16,7 +16,7 @@ struct FastIO{
     inline int operator () ()
     {
         int c=xchar(),x=0,ng=0;
-        while (!isdigit(c)) c=xchar(),ng|=(c=='-');
+        while (!isdigit(c)) ng|=(c=='-'),c=xchar();
         for(;isdigit(c);c=xchar()) x=x*10+c-'0';
         return ng?-x:x;
     }
@@ -24,7 +24,7 @@ struct FastIO{
     inline ll operator ! ()
     {
         int c=xchar(),ng=0;ll x=0;
-        while(!isdigit(c)) c=xchar(),ng|=(c=='-');
+        while(!isdigit(c)) ng|=(c=='-'),c=xchar();
         for(;isdigit(c);c=xchar()) x=x*10+c-'0';
         return ng?-x:x;
     }

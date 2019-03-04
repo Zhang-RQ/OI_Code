@@ -1,4 +1,7 @@
 # OI_DataBase
+
+[![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/Zhang-RQ/OI_Code.svg)](https://github.com/Zhang-RQ/OI_Code)
+
 只是迷一样的OI数据库而已了
 
 会存一些OJ的代码哦
